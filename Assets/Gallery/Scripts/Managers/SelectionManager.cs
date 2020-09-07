@@ -26,12 +26,12 @@ public class SelectionManager : MonoBehaviour
             _selection = null;
         }
 
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        var ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward)    ; //get the blue axis (z)
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
         {
-            var selection = hit.transform;
+            var selection = hit.transform; //selection is now the transform of whatever object you are looking at. (raycast hit)
             if (selection.CompareTag(selectableTag) && _selection != selection)
             {
                 var selectionsRenderer = selection.GetComponent<Renderer>();

@@ -55,7 +55,6 @@ public class RobotCamera : MonoBehaviour
         else
         {
             Cursor.lockState = CursorLockMode.None;
-
         }
 
     }
