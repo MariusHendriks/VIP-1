@@ -48,9 +48,13 @@ public class SelectionManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            _selection.GetComponent<RobotController>().enabled = true;
-            _selection.GetComponent<RobotController>().robot.GetComponent<RobotMovement>().enabled = true;
-            GameObject.Find("Character").GetComponent<FirstPersonController>().enabled = false;
+            if(_selection != null && _selection.GetComponent<RobotController>() != null)
+            {   
+                _selection.GetComponent<RobotController>().enabled = true;
+                _selection.GetComponent<RobotController>().robot.GetComponent<RobotMovement>().enabled = true;
+                GameObject.Find("Character").GetComponent<FirstPersonController>().enabled = false;
+            }
+          
         }
 
     }
