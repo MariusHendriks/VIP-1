@@ -17,9 +17,9 @@ public class CameraManager : MonoBehaviour
 
     }
 
-    public void SwitchCamera(Camera cameraToSwitchTo)
+    public void SwitchCamera(Camera prevCam, Camera cameraToSwitchTo)
     {
-        Camera.main.enabled = false;
+        prevCam.enabled = false;
         cameraToSwitchTo.enabled = true;
     }
 }

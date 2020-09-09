@@ -119,7 +119,10 @@ public class RobotMovement : MonoBehaviour
             GetComponent<Rigidbody>().AddForce(0, jumpForce, 0, ForceMode.Impulse);
         }
     }
-
+    private void OnDisable()
+    {
+        ResetPosition();
+    }
     void OnCollisionEnter(Collision collision)
     {
         canJump = true;

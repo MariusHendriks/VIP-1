@@ -10,8 +10,8 @@ public class SelectionManager : MonoBehaviour
     private string selectableTag = "Selectable";
     private Material previousMaterial;
     private Transform _selection;
-
-
+    private bool inRobot = false;
+    private Transform selectedRobot;
     // Update is called once per frame
     void Update()
     {
@@ -26,7 +26,7 @@ public class SelectionManager : MonoBehaviour
             _selection = null;
         }
 
-        var ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward)    ; //get the blue axis (z)
+        var ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward); //get the blue axis (z)
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
@@ -48,13 +48,26 @@ public class SelectionManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if(_selection != null && _selection.GetComponent<RobotController>() != null)
-            {   
-                _selection.GetComponent<RobotController>().enabled = true;
-                _selection.GetComponent<RobotController>().robot.GetComponent<RobotMovement>().enabled = true;
+            if (_selection != null && _selection.GetComponent<RobotController>() != null)
+            {
+                selectedRobot = _selection;
+                selectedRobot.GetComponent<RobotController>().enabled = true;
+                selectedRobot.GetComponent<RobotController>().robot.GetComponent<RobotMovement>().enabled = true;
                 GameObject.Find("Character").GetComponent<FirstPersonController>().enabled = false;
+                inRobot = true;
             }
-          
+
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            if (inRobot)
+            {
+                selectedRobot.GetComponent<RobotController>().enabled = false;
+                selectedRobot.GetComponent<RobotController>().robot.GetComponent<RobotMovement>().enabled = false;
+                GameObject.Find("Character").GetComponent<FirstPersonController>().enabled = true;
+                inRobot = false;
+            }
         }
 
     }
