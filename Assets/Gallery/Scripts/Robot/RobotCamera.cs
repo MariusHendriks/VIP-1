@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RobotCamera : MonoBehaviour
 {
-    private float timeLeft = 30;
+    public bool rotateCamera = false;
     public float speed = 3.5f;
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class RobotCamera : MonoBehaviour
     void Update()
     {
         Cursor.lockState = CursorLockMode.Locked; //locks mouse
-                                                  //transform.eulerAngles += new Vector3(0, 20f * Time.deltaTime, 0); // x and z have to be 0 or else woosh
+
 
         if (Input.GetMouseButtonDown(1) && !Input.GetMouseButton(0))
         {
@@ -56,6 +56,9 @@ public class RobotCamera : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
-
+        if (rotateCamera)
+        {
+            transform.eulerAngles += new Vector3(0, 20f * Time.deltaTime, 0); // x and z have to be 0 or else woosh
+        }
     }
 }

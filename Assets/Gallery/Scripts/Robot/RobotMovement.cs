@@ -9,15 +9,29 @@ public class RobotMovement : MonoBehaviour
     public Transform RightLeg;
     public Transform LeftShoulder;
     public Transform RightShoulder;
+    public Transform UpperBody;
     public Transform Body;
     private float startTime;
+    public float afkTimer = 10.0f;
+    private float InitialAfkTimer;
     private bool moved = false;
-
+    private bool hasDanced = false;
 
     public float jumpForce = 8f;
-
+    public GameObject RobotCameraHolder;
     private bool canJump = false;
     private bool jump = false;
+
+
+    //Still ugly with lack of knowledge on how to do it better :D
+    private Vector3 dancePosition = new Vector3(0, 0, 0);
+    private Vector3 dancePositionUpperBody = new Vector3(0, 0, 0);
+
+
+    private void Start()
+    {
+        InitialAfkTimer = afkTimer;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -38,8 +52,8 @@ public class RobotMovement : MonoBehaviour
         {
             if (!moved)
             {
-                startTime = Time.time;
-                moved = true;
+
+                ResetPosition();
             }
 
         }
@@ -57,8 +71,46 @@ public class RobotMovement : MonoBehaviour
         {
             jump = false;
         }
-    }
 
+
+        afkTimer -= Time.deltaTime;
+        if (afkTimer < 0 && !hasDanced)
+        {
+            Dance();
+        }
+
+    }
+    void Dance()
+    {
+        //Ugly but works :)
+
+        RobotCameraHolder.GetComponent<RobotCamera>().rotateCamera = true;
+        if (dancePosition.x < 25)
+        {
+            dancePosition += new Vector3(20f * Time.deltaTime, 0, 0);
+            Body.localEulerAngles = dancePosition;
+        }
+        else if (dancePositionUpperBody.y < 180)
+        {
+            dancePositionUpperBody += new Vector3(0, 60f * Time.deltaTime, 0);
+            UpperBody.localEulerAngles = dancePositionUpperBody;
+        }
+
+
+        // 20f * Time.deltaTime
+    }
+    void ResetPosition()
+    {
+        startTime = Time.time;
+        moved = true;
+
+        RobotCameraHolder.GetComponent<RobotCamera>().rotateCamera = false;
+        afkTimer = InitialAfkTimer;
+        UpperBody.localEulerAngles = new Vector3(0, 0, 0);
+        Body.localEulerAngles = new Vector3(0, 0, 0);
+        LeftShoulder.localEulerAngles = new Vector3(0, 0, 0);
+        RightShoulder.localEulerAngles = new Vector3(0, 0, 0);
+    }
     void FixedUpdate()
     {
         if (jump && canJump)
