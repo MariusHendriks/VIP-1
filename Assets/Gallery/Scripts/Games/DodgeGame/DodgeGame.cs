@@ -1,61 +1,81 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DodgeGame : MonoBehaviour
 {
+    public TextMeshPro score;
+    public TextMeshPro highScore;
     private float scrollSpeed = 0.05f;
     private Material material;
     public float acceleration = 1.0f;
     private bool dead = false;
+    private bool gameStarted = false;
+    private float initialAcceleration;
+
+    private Vector2 initialOffset;
     // Start is called before the first frame update
     void Start()
     {
-
         material = GetComponent<Renderer>().material;
+        initialOffset = material.mainTextureOffset;
+        initialAcceleration = acceleration;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        material.mainTextureOffset += new Vector2(scrollSpeed * Time.deltaTime, 0);
-
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (gameStarted)
         {
-            material.mainTextureOffset += new Vector2(0, -0.001f);
+            material.mainTextureOffset += new Vector2(scrollSpeed * Time.deltaTime, 0);
+
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                material.mainTextureOffset += new Vector2(0, -0.001f);
+            }
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                material.mainTextureOffset += new Vector2(0, 0.001f);
+            }
+            score.text = Mathf.Round(material.mainTextureOffset.x * 100).ToString();
+            scrollSpeed += acceleration * Time.deltaTime * 0.01f;
+            dead = isDead(material.mainTextureOffset.x, material.mainTextureOffset.y);
         }
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            material.mainTextureOffset += new Vector2(0, 0.001f);
-        }
-        scrollSpeed += acceleration * Time.deltaTime * 0.01f;
-        material.mainTextureScale += new Vector2(-(acceleration * Time.deltaTime * 0.002f), 0);
-        dead = isDead(material.mainTextureOffset.x, material.mainTextureOffset.y);
+
 
         if (dead)
         {
-
+            gameStarted = false;
+            ResetGame();
+        }
+        if (Input.GetKey(KeyCode.KeypadEnter))
+        {
+            gameStarted = true;
+            score.text = "0";
         }
 
-
     }
-
+    private void ResetGame()
+    {
+        if (float.Parse(score.text) > float.Parse(highScore.text))
+        {
+            highScore.text = score.text;
+        }
+        acceleration = initialAcceleration;
+        material.mainTextureOffset = initialOffset;
+    }
 
     bool isDead(float x, float y)
     {
-
         x %= 1;
-
-
-
-
         if (x > 0.07f && x < 0.09f && (y < 0.17f || y > 0.35f))
         {
             return true;
 
         }
-        else if (x > 0.32f && x < 0.34f && (y < 0.18f || y > 0.36f))
+        else if (x > 0.195f && x < 0.215f && (y < 0.08f || y > 0.28f))
         {
             return true;
         }
