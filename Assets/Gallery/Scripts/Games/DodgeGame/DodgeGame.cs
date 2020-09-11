@@ -11,7 +11,7 @@ public class DodgeGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //acceleration = 0.0f;
+
         material = GetComponent<Renderer>().material;
     }
 
@@ -35,7 +35,7 @@ public class DodgeGame : MonoBehaviour
 
         if (dead)
         {
-            Debug.Log("Dead noob ");
+
         }
 
 
@@ -44,9 +44,9 @@ public class DodgeGame : MonoBehaviour
 
     bool isDead(float x, float y)
     {
-       
+
         x %= 1;
-        
+
 
 
 

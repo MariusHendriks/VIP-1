@@ -10,8 +10,8 @@ public class SelectionManager : MonoBehaviour
     private string selectableTag = "Selectable";
     private Material previousMaterial;
     private Transform _selection;
-    private bool inRobot = false;
-    private Transform selectedRobot;
+    private bool OtherCameraActive = false;
+    private Transform selectedObject;
     // Update is called once per frame
     void Update()
     {
@@ -50,23 +50,38 @@ public class SelectionManager : MonoBehaviour
         {
             if (_selection != null && _selection.GetComponent<RobotController>() != null)
             {
-                selectedRobot = _selection;
-                selectedRobot.GetComponent<RobotController>().enabled = true;
-                selectedRobot.GetComponent<RobotController>().robot.GetComponent<RobotMovement>().enabled = true;
+                selectedObject = _selection;
+                selectedObject.GetComponent<RobotController>().enabled = true;
+                selectedObject.GetComponent<RobotController>().robot.GetComponent<RobotMovement>().enabled = true;
                 GameObject.Find("Character").GetComponent<FirstPersonController>().enabled = false;
-                inRobot = true;
+                OtherCameraActive = true;
+            }
+            if (_selection != null && _selection.GetComponent<DodgeGameController>() != null)
+            {
+                selectedObject = _selection;
+                selectedObject.GetComponent<DodgeGameController>().enabled = true;
+                GameObject.Find("Character").GetComponent<FirstPersonController>().enabled = false;
+                OtherCameraActive = true;
             }
 
         }
 
         if (Input.GetKey(KeyCode.Escape))
         {
-            if (inRobot)
+            if (OtherCameraActive)
             {
-                selectedRobot.GetComponent<RobotController>().enabled = false;
-                selectedRobot.GetComponent<RobotController>().robot.GetComponent<RobotMovement>().enabled = false;
+                if (selectedObject.GetComponent<RobotController>() != null)
+                {
+                    selectedObject.GetComponent<RobotController>().enabled = false;
+                    selectedObject.GetComponent<RobotController>().robot.GetComponent<RobotMovement>().enabled = false;
+                }
+                if (selectedObject.GetComponent<DodgeGameController>() != null)
+                {
+                    selectedObject.GetComponent<DodgeGameController>().enabled = false;
+                }
+
                 GameObject.Find("Character").GetComponent<FirstPersonController>().enabled = true;
-                inRobot = false;
+                OtherCameraActive = false;
             }
         }
 
