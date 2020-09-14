@@ -50,7 +50,7 @@ public class DodgeGame : MonoBehaviour
             gameStarted = false;
             ResetGame();
         }
-        if (Input.GetKey(KeyCode.KeypadEnter))
+        if (Input.GetKey(KeyCode.Return))
         {
             gameStarted = true;
             score.text = "0";
