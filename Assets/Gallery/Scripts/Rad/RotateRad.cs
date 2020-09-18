@@ -2,25 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotateRad : MonoBehaviour
+public class AddTorque : MonoBehaviour
 {
-    private float x;
-    private GameObject Lever;
-    private Rigidbody leverRigidBody;
 
-    void Start()
-    {
-        Lever = GameObject.Find("Lever");
-        leverRigidBody = Lever.GetComponent<Rigidbody>();
+    public float pushSpeed = 1000f;
 
-    }
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+
+
+        if (Input.GetKey(KeyCode.E))
         {
-            leverRigidBody.AddTorque(Lever.transform.forward * 100f);
+            GetComponent<Rigidbody>().AddTorque(transform.right * pushSpeed);
         }
-
 
     }
 }

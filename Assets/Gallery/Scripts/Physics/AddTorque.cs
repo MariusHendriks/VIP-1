@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddTorque : MonoBehaviour
+public class RotateRad : MonoBehaviour
 {
 
-    public float amount = 1000f;
+    public float amount = 10f;
 
     void FixedUpdate()
     {

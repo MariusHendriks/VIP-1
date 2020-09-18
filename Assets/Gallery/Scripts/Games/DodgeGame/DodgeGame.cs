@@ -14,7 +14,7 @@ public class DodgeGame : MonoBehaviour
     private bool dead = false;
     private bool gameStarted = false;
     private float initialAcceleration;
-
+    private float initialScrollspeed;
     private Vector2 initialOffset;
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,7 @@ public class DodgeGame : MonoBehaviour
         material = GetComponent<Renderer>().material;
         initialOffset = material.mainTextureOffset;
         initialAcceleration = acceleration;
+        initialScrollspeed = scrollSpeed;
     }
 
     // Update is called once per frame
@@ -29,15 +30,16 @@ public class DodgeGame : MonoBehaviour
     {
         if (gameStarted)
         {
+
             material.mainTextureOffset += new Vector2(scrollSpeed * Time.deltaTime, 0);
 
             if (Input.GetKey(KeyCode.DownArrow))
             {
-                material.mainTextureOffset += new Vector2(0, -0.001f);
+                material.mainTextureOffset += new Vector2(0, -1f * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                material.mainTextureOffset += new Vector2(0, 0.001f);
+                material.mainTextureOffset += new Vector2(0, 1f * Time.deltaTime);
             }
             score.text = Mathf.Round(material.mainTextureOffset.x * 100).ToString();
             scrollSpeed += acceleration * Time.deltaTime * 0.01f;
@@ -47,7 +49,6 @@ public class DodgeGame : MonoBehaviour
 
         if (dead)
         {
-            gameStarted = false;
             ResetGame();
         }
         if (Input.GetKey(KeyCode.Return))
@@ -59,11 +60,13 @@ public class DodgeGame : MonoBehaviour
     }
     private void ResetGame()
     {
+        gameStarted = false;
         if (float.Parse(score.text) > float.Parse(highScore.text))
         {
             highScore.text = score.text;
         }
         acceleration = initialAcceleration;
+        scrollSpeed = initialScrollspeed;
         material.mainTextureOffset = initialOffset;
     }
 
