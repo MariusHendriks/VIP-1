@@ -23,6 +23,7 @@ public class RobotMovementV2 : MonoBehaviour
     {
         InitialAfkTimer = afkTimer;
         animator = GetComponent<Animator>();
+        animator.enabled = true;
     }
     // Update is called once per frame
     void Update()
@@ -84,6 +85,7 @@ public class RobotMovementV2 : MonoBehaviour
     }
     private void OnDisable()
     {
+        animator.SetBool("isWalking", false);
         ResetPosition();
     }
     void OnCollisionEnter(Collision collision)
