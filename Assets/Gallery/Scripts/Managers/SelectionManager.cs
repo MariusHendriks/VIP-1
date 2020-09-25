@@ -50,10 +50,10 @@ public class SelectionManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && _selection != null && _selection.GetComponent<Selectable>() != null)
         {
+
             mainCharacter.GetComponent<FirstPersonController>().enabled = false;
             currentSelection = _selection.GetComponent<Selectable>();
             currentSelection.enabled = true;
-
         }
         if (Input.GetKeyDown(KeyCode.Escape) && currentSelection != null)
         {
