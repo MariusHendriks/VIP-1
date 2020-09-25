@@ -13,6 +13,7 @@ public class ClawMachineMovement : MonoBehaviour
     public HingeJoint right;
     public GameObject zPlate;
     public GameObject xPlate;
+    public GameObject hole;
 
     private bool reachedBottom = false;
     private bool grabSequenceActivated = false;
@@ -30,6 +31,10 @@ public class ClawMachineMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        zPlate.transform.localPosition = new Vector3(zPlate.transform.localPosition.x, zPlate.transform.localPosition.y, transform.localPosition.z);
+        xPlate.transform.localPosition = new Vector3(transform.localPosition.x, xPlate.transform.localPosition.y, xPlate.transform.localPosition.z);
+        hole.transform.localPosition = new Vector3(transform.localPosition.x, hole.transform.localPosition.y, transform.localPosition.z);
+
         if (!grabSequenceActivated)
         {
             transform.position += transform.right * Time.deltaTime * speedLeftAndRight * -Input.GetAxis("Vertical");
@@ -37,8 +42,7 @@ public class ClawMachineMovement : MonoBehaviour
 
             transform.localPosition = new Vector3(Mathf.Clamp(transform.localPosition.x, -2.5f, 2.5f), transform.localPosition.y, Mathf.Clamp(transform.localPosition.z, -2.5f, 2.5f));
 
-            zPlate.transform.localPosition = new Vector3(zPlate.transform.localPosition.x, zPlate.transform.localPosition.y, transform.localPosition.z);
-            xPlate.transform.localPosition = new Vector3(transform.localPosition.x, zPlate.transform.localPosition.y, xPlate.transform.localPosition.z);
+
         }
 
 
@@ -58,7 +62,7 @@ public class ClawMachineMovement : MonoBehaviour
 
     private void GrabSequence()
     {
-        if (transform.localPosition.y > 1.5f && !reachedBottom)
+        if (transform.localPosition.y > 1.4f && !reachedBottom)
         {
             transform.position += new Vector3(0, -speedUpAndDown * Time.deltaTime, 0);
             HandleHinges(true, -25f);
@@ -84,6 +88,7 @@ public class ClawMachineMovement : MonoBehaviour
                         if (transform.localPosition.x <= 2.5)
                         {
                             transform.position += new Vector3(speedUpAndDown * Time.deltaTime, 0, 0);
+
                         }
                         if (transform.localPosition.z <= 2.5)
                         {
