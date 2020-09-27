@@ -2,23 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DodgeGameController : MonoBehaviour
+public class DodgeGameController : Selectable
 {
-
+    public CameraManager cameraManager;
     public Camera gameCamera;
-    public Camera mainCamera;
+    public Camera playerCamera;
     // Start is called before the first frame update
     void OnEnable()
     {
-        GameObject.Find("GameSystem").GetComponent<CameraManager>().SwitchCamera(mainCamera, gameCamera);
+        cameraManager.SwitchCamera(playerCamera, gameCamera);
+        playerCamera.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            GameObject.Find("GameSystem").GetComponent<CameraManager>().SwitchCamera(gameCamera, mainCamera);
-        }
+        cameraManager.SwitchCamera(gameCamera, playerCamera);
+        playerCamera.enabled = true;
     }
 }
