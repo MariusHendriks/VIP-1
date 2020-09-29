@@ -7,8 +7,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 public class RobotMovementV2 : MonoBehaviour
 {
 
-    public float jumpForce = 8f;
-    public float movementSpeed = 200f;
+    public float movementSpeed = 2f;
     public float afkTimer = 10.0f;
     public float lowJumpMultiplier = 1.5f;
     public float fallMultiplier = 2f;
@@ -20,16 +19,20 @@ public class RobotMovementV2 : MonoBehaviour
     public GameObject JetpackLightLeft;
     public GameObject JetpackLightRight;
 
+    private float jetpackForce = 0.5f;
     private float startTime;
     private float InitialAfkTimer;
     private bool moved = false;
     private bool isDancing = false;
 
-    private bool jump = false;
     private Animator animator;
-    private Rigidbody rigidBody;
 
+    private Vector3 moveDirection = Vector3.zero;
+    private float gravity = 20f;
+    private bool jump = false;
+    private float vSpeed = 0;
 
+    CharacterController cc;
 
     private void Start()
     {
@@ -37,14 +40,68 @@ public class RobotMovementV2 : MonoBehaviour
         InitialAfkTimer = afkTimer;
         animator = GetComponent<Animator>();
         animator.enabled = true;
-        rigidBody = GetComponent<Rigidbody>();
+
+        cc = GetComponent<CharacterController>();
     }
+
     // Update is called once per frame
     void Update()
     {
+        //transform.position += transform.forward * Time.deltaTime * movementSpeed / 50 * Input.GetAxis("Vertical");
+        //transform.position += transform.right * Time.deltaTime * movementSpeed / 50 * Input.GetAxis("Horizontal");
 
-        transform.position += transform.forward * Time.deltaTime * movementSpeed / 50 * Input.GetAxis("Vertical");
-        transform.position += transform.right * Time.deltaTime * movementSpeed / 50 * Input.GetAxis("Horizontal");
+        moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection *= movementSpeed;
+
+        if (cc.isGrounded)
+        {
+            vSpeed = 0;
+        }
+
+
+        if (Input.GetButton("Jump"))
+        {
+
+            if (vSpeed < 6f)
+            {
+                vSpeed += jetpackForce * Time.deltaTime * 100f;
+                if (jetpackForce < 6f)
+                {
+                    jetpackForce *= 1.01f;
+                }
+            }
+        }
+        else
+        {
+            jetpackForce = 0.1f;
+            vSpeed -= gravity * Time.deltaTime;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            StartParticles();
+        }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            StopParticles();
+            jump = false;
+        }
+
+        moveDirection.y = vSpeed;
+        cc.Move(moveDirection * Time.deltaTime);
+
+
+        if (!cc.isGrounded)
+        {
+
+            animator.SetBool("isFlying", true);
+        }
+        else
+        {
+            animator.SetBool("isFlying", false);
+        }
 
         if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
         {
@@ -54,28 +111,8 @@ public class RobotMovementV2 : MonoBehaviour
         }
         else
         {
-            if (!moved)
-            {
-                animator.SetBool("isWalking", true);
-                ResetPosition();
-            }
-
+            ResetValues();
         }
-
-
-        if (Input.GetButtonDown("Jump") && !jump)
-        {
-            StartParticles();
-            jump = true;
-            ResetPosition();
-
-        }
-        if (Input.GetButtonUp("Jump"))
-        {
-            StopParticles();
-            jump = false;
-        }
-
 
         afkTimer -= Time.deltaTime;
         if (afkTimer < 0 && !isDancing)
@@ -84,37 +121,29 @@ public class RobotMovementV2 : MonoBehaviour
             animator.SetBool("isDancing", true);
         }
 
-        if (rigidBody.velocity.y < 0)
-        {
-            rigidBody.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
-        else if (rigidBody.velocity.y > 0 && !Input.GetButton("Jump"))
-        {
-            rigidBody.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-        }
-
-
     }
-    void ResetPosition()
+
+    void ResetValues()
     {
         startTime = Time.time;
         animator.SetBool("isDancing", false);
+        animator.SetBool("isWalking", true);
         moved = true;
         afkTimer = InitialAfkTimer;
         isDancing = false;
     }
+
     void FixedUpdate()
     {
-        if (jump)
-        {
-            GetComponent<Rigidbody>().AddForce(0, jumpForce, 0, ForceMode.Impulse);
-        }
+        var nVelocity = transform.InverseTransformDirection(cc.velocity).normalized;
 
+        animator.SetFloat("xMotion", nVelocity.z);
+        animator.SetFloat("yMotion", nVelocity.y);
     }
     private void OnDisable()
     {
         animator.SetBool("isWalking", false);
-        ResetPosition();
+        ResetValues();
     }
     private void StopParticles()
     {
@@ -133,7 +162,5 @@ public class RobotMovementV2 : MonoBehaviour
         JetpackFireRight.Play();
         JetpackLightLeft.GetComponent<Light>().intensity = 1;
         JetpackLightRight.GetComponent<Light>().intensity = 1;
-
-
     }
 }
