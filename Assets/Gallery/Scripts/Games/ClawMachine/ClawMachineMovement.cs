@@ -26,7 +26,6 @@ public class ClawMachineMovement : MonoBehaviour
     void Start()
     {
         initialHeight = transform.localPosition.y;
-
     }
 
     void FixedUpdate()
@@ -41,8 +40,6 @@ public class ClawMachineMovement : MonoBehaviour
             transform.position += transform.forward * Time.deltaTime * speedLeftAndRight * Input.GetAxis("Horizontal");
 
             transform.localPosition = new Vector3(Mathf.Clamp(transform.localPosition.x, -2.5f, 2.5f), transform.localPosition.y, Mathf.Clamp(transform.localPosition.z, -2.5f, 2.5f));
-
-
         }
 
 
@@ -88,7 +85,6 @@ public class ClawMachineMovement : MonoBehaviour
                         if (transform.localPosition.x <= 2.5)
                         {
                             transform.position += new Vector3(speedUpAndDown * Time.deltaTime, 0, 0);
-
                         }
                         if (transform.localPosition.z <= 2.5)
                         {
@@ -105,7 +101,6 @@ public class ClawMachineMovement : MonoBehaviour
                                 objectReleased = true;
                                 if (!hingeClosed)
                                 {
-
                                     HandleHinges(false, 10f);
                                 }
                                 else

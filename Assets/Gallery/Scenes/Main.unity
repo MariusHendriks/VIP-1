@@ -27020,7 +27020,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 916670712}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 10.989998, y: 0.5, z: -0.20000076}
+  m_LocalPosition: {x: 10.989998, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1938479433}
@@ -27840,6 +27840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LookAt: {fileID: 473216850}
+  lockY: 1
 --- !u!64 &974453884
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -33620,7 +33621,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300937645}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.41, y: 0, z: 0.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1382380762}
@@ -33724,7 +33725,6 @@ MonoBehaviour:
   afkTimer: 10
   lowJumpMultiplier: 1.5
   fallMultiplier: 2
-  jumpForce: 6
   JetpackSmokeLeft: {fileID: 903969230}
   JetpackSmokeRight: {fileID: 502547739}
   JetpackFireLeft: {fileID: 1578740014}
