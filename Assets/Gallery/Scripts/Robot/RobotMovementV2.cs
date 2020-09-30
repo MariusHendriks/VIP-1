@@ -22,14 +22,12 @@ public class RobotMovementV2 : MonoBehaviour
     private float jetpackForce = 0.5f;
     private float startTime;
     private float InitialAfkTimer;
-    private bool moved = false;
     private bool isDancing = false;
 
     private Animator animator;
 
     private Vector3 moveDirection = Vector3.zero;
     private float gravity = 20f;
-    private bool jump = false;
     private float vSpeed = 0;
 
     CharacterController cc;
@@ -86,7 +84,6 @@ public class RobotMovementV2 : MonoBehaviour
         if (Input.GetButtonUp("Jump"))
         {
             StopParticles();
-            jump = false;
         }
 
         moveDirection.y = vSpeed;
@@ -95,7 +92,6 @@ public class RobotMovementV2 : MonoBehaviour
 
         if (!cc.isGrounded)
         {
-
             animator.SetBool("isFlying", true);
         }
         else
@@ -105,8 +101,6 @@ public class RobotMovementV2 : MonoBehaviour
 
         if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
         {
-            moved = false; //No movement
-
             animator.SetBool("isWalking", false);
         }
         else
@@ -128,7 +122,6 @@ public class RobotMovementV2 : MonoBehaviour
         startTime = Time.time;
         animator.SetBool("isDancing", false);
         animator.SetBool("isWalking", true);
-        moved = true;
         afkTimer = InitialAfkTimer;
         isDancing = false;
     }
