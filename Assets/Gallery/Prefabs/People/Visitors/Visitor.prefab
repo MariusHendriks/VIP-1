@@ -1238,7 +1238,7 @@ GameObject:
   - component: {fileID: 2588632290778972998}
   - component: {fileID: 2588632290778972999}
   m_Layer: 0
-  m_Name: Visitor1
+  m_Name: Visitor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1313,7 +1313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e6dc99d0e2d734397be7c3beebcee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toFollow: {fileID: 0}
+  artObjects: []
+  toFollow: {fileID: 5267448376652332344, guid: 9c42cb504542f0740ae93f1d70a834b5, type: 3}
 --- !u!195 &2588632290778972999
 NavMeshAgent:
   m_ObjectHideFlags: 0
