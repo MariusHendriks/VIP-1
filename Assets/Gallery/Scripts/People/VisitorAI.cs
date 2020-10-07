@@ -10,9 +10,12 @@ public class VisitorAI : MonoBehaviour
     public List<GameObject> artObjects;
     public float interestedTime = 6f;
     public GameObject forceTarget;
+    public bool forceTargetEnabled = false;
+
+    //tidelijk
+    public GameObject target;
 
 
-    private GameObject target;
     private NavMeshAgent agent;
     private Animator animator;
     private bool isWalking;
@@ -35,6 +38,7 @@ public class VisitorAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
 
         var targetPos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
         if (Vector3.Distance(targetPos, transform.position) > target.GetComponent<ArtpieceProps>().inspectionDistance)
@@ -96,7 +100,7 @@ public class VisitorAI : MonoBehaviour
 
     private void GetTarget()
     {
-        if (forceTarget != null)
+        if (forceTarget != null && forceTargetEnabled)
         {
             target = forceTarget;
         }
