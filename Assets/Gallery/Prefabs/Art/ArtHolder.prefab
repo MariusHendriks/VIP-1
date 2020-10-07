@@ -200,6 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4670112238484039826}
   - component: {fileID: 1304849870713707259}
+  - component: {fileID: 5852784731082255573}
   m_Layer: 0
   m_Name: ArtHolder
   m_TagString: Untagged
@@ -239,3 +240,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.4, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &5852784731082255573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989950413253485679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75022f702cfc59341b59a7503f67138f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inspectionDistance: 1
