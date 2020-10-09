@@ -36,12 +36,16 @@ public class GuardIK : MonoBehaviour
         {
             animator.SetIKPositionWeight(AvatarIKGoal.RightHand, IKWeight);
             animator.SetIKPosition(AvatarIKGoal.RightHand, rightTargetObject.position);
+            animator.SetIKRotationWeight(AvatarIKGoal.RightHand, IKWeight);
+            animator.SetIKRotation(AvatarIKGoal.RightHand, rightTargetObject.rotation);
         }
 
         if (leftHand && leftTargetObject != null)
         {
             animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, IKWeight);
             animator.SetIKPosition(AvatarIKGoal.LeftHand, leftTargetObject.position);
+            animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, IKWeight);
+            animator.SetIKRotation(AvatarIKGoal.LeftHand, leftTargetObject.rotation);
         }
     }
 }
