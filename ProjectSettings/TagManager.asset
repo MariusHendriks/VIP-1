@@ -8,6 +8,8 @@ TagManager:
   - Selectable
   - AIViewable
   - AIInteractable
+  - Interactable
+  - Pickupable
   layers:
   - Default
   - TransparentFX
