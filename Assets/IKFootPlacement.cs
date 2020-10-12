@@ -31,8 +31,10 @@ public class IKFootPlacement : MonoBehaviour
 
     private void SetFootPosition(AvatarIKGoal foot)
     {
-        anim.SetIKPositionWeight(foot, 1f);
-        anim.SetIKRotationWeight(foot, 1f);
+        anim.SetIKPositionWeight(foot, anim.GetFloat("ikLeftFootWeight"));
+        anim.SetIKPositionWeight(foot, anim.GetFloat("ikRightFootWeight"));
+        anim.SetIKRotationWeight(foot, anim.GetFloat("ikLeftFootWeight"));
+        anim.SetIKRotationWeight(foot, anim.GetFloat("ikRightFootWeight"));
 
         RaycastHit hit;
         Ray ray = new Ray(anim.GetIKPosition(foot) + Vector3.up, Vector3.down);
