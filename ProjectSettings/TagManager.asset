@@ -10,6 +10,9 @@ TagManager:
   - AIInteractable
   - Interactable
   - Pickupable
+  - projectile
+  - FxTemporaire
+  - Walkable
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - 
   - NoCollideWithEachOther
   - NoColideWithParticles
-  - 
+  - NPC
   - 
   - 
   - 
