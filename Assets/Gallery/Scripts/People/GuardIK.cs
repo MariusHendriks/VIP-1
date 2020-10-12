@@ -13,8 +13,6 @@ public class GuardIK : MonoBehaviour
     private Animator animator;
     private Transform rightTargetObject;
     private Transform leftTargetObject;
-    private Vector3 rightTargetPos;
-    private Vector3 leftTargetPos;
 
     // Start is called before the first frame update
     void Start()
@@ -24,14 +22,8 @@ public class GuardIK : MonoBehaviour
         leftTargetObject = targetObject.transform.Find("LeftHandTarget");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     private void OnAnimatorIK(int layerIndex)
     {
-
         if (rightHand && rightTargetObject != null)
         {
             animator.SetIKPositionWeight(AvatarIKGoal.RightHand, IKWeight);
