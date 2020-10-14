@@ -27,7 +27,6 @@ public class WatchAnimation : MonoBehaviour
         float xRotation = eye.localEulerAngles.x;
         eye.LookAt(dest);
         eye.localRotation = Quaternion.Euler(xRotation, eye.localEulerAngles.y, eye.localEulerAngles.z);
-        Debug.Log(eye.rotation.w);
     }
 
 }
