@@ -60,7 +60,129 @@ ModelImporter:
       heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
+      curves:
+      - name: ikLeftFootWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: 0.00023651123
+            value: -0.00024414062
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.018096669
+            value: 0.0028210878
+            inSlope: -0.6503834
+            outSlope: -0.6503834
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.47250405
+          - serializedVersion: 3
+            time: 0.028070873
+            value: 0.9958507
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.07147383
+            value: 0.99345404
+            inSlope: 0.0054920632
+            outSlope: 0.0054920632
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.08271496
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.08288478
+            value: 0.0012745261
+            inSlope: -0.10572367
+            outSlope: -0.10572367
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.30562732
+          - serializedVersion: 3
+            time: 0.10013366
+            value: 0.00021562325
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
+      - name: ikRightFootWeight
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 3
+            time: -0.0009856042
+            value: 1.001636
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.19603455
+            value: 0.99754
+            inSlope: 0.006934206
+            outSlope: 0.006934206
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.29681242
+            value: 0.0015471362
+            inSlope: 0.008547688
+            outSlope: 0.008547688
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.69978285
+            value: 0.0043947697
+            inSlope: 0.002125166
+            outSlope: 0.002125166
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.9748086
+          - serializedVersion: 3
+            time: 0.79999995
+            value: 0.99916387
+            inSlope: -0.036039043
+            outSlope: -0.036039043
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.7151402
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0.98999023
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 4
       events: []
       transformMask: []
       maskType: 3
