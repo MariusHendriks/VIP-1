@@ -3076,6 +3076,7 @@ GameObject:
   - component: {fileID: 2349081279488022285}
   - component: {fileID: 5621885171202863187}
   - component: {fileID: 1839470136804699989}
+  - component: {fileID: 5012139075382695022}
   m_Layer: 0
   m_Name: Joe
   m_TagString: Untagged
@@ -3090,7 +3091,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5395876344723665114}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3149,7 +3150,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5395876344723665114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7e6dc99d0e2d734397be7c3beebcee4, type: 3}
   m_Name: 
@@ -3186,6 +3187,20 @@ NavMeshAgent:
   m_BaseOffset: -0.06
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5012139075382695022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5395876344723665114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec64c6b6fd7d12b4c957354c1521da30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animEnabled: 1
+  watchDest: {fileID: 0}
 --- !u!1 &5493582469343182352
 GameObject:
   m_ObjectHideFlags: 0
