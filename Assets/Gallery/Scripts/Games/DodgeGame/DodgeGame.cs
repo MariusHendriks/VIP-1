@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR.InteractionSystem;
 
 public class DodgeGame : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class DodgeGame : MonoBehaviour
     private float initialAcceleration;
     private float initialScrollspeed;
     private Vector2 initialOffset;
+    public LinearMapping linearMapping;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,31 +34,28 @@ public class DodgeGame : MonoBehaviour
         {
 
             material.mainTextureOffset += new Vector2(scrollSpeed * Time.deltaTime, 0);
-
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                material.mainTextureOffset += new Vector2(0, -1f * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                material.mainTextureOffset += new Vector2(0, 1f * Time.deltaTime);
-            }
             score.text = Mathf.Round(material.mainTextureOffset.x * 100).ToString();
             scrollSpeed += acceleration * Time.deltaTime * 0.01f;
             dead = isDead(material.mainTextureOffset.x, material.mainTextureOffset.y);
         }
 
-
         if (dead)
         {
             ResetGame();
         }
-        if (Input.GetKey(KeyCode.Return))
-        {
-            gameStarted = true;
-            score.text = "0";
-        }
 
+
+
+        material.mainTextureOffset = new Vector2(material.mainTextureOffset.x, (linearMapping.value) / 2);
+    }
+
+    public void StartGame()
+    {
+        if (!gameStarted)
+        {
+            score.text = "0";
+            gameStarted = true;
+        }
     }
     private void ResetGame()
     {
