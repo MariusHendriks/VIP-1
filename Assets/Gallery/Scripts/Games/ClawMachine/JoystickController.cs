@@ -6,6 +6,7 @@ using Valve.VR.InteractionSystem;
 
 public class JoystickController : MonoBehaviour
 {
+    public GameObject top;
     private bool grabbed;
     private Hand hand;
     private GrabTypes grabbedWithType;
