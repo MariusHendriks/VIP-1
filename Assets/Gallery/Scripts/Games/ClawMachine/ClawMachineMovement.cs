@@ -14,6 +14,7 @@ public class ClawMachineMovement : MonoBehaviour
     public GameObject zPlate;
     public GameObject xPlate;
     public GameObject hole;
+    public ClawJoystick clawJoystick;
 
     private bool reachedBottom = false;
     private bool grabSequenceActivated = false;
@@ -36,8 +37,8 @@ public class ClawMachineMovement : MonoBehaviour
 
         if (!grabSequenceActivated)
         {
-            transform.position += transform.right * Time.deltaTime * speedLeftAndRight * -Input.GetAxis("Vertical");
-            transform.position += transform.forward * Time.deltaTime * speedLeftAndRight * Input.GetAxis("Horizontal");
+            transform.position += transform.right * Time.deltaTime * speedLeftAndRight * clawJoystick.GetJoystickPosition().x;
+            transform.position += transform.forward * Time.deltaTime * speedLeftAndRight * clawJoystick.GetJoystickPosition().y;
 
             transform.localPosition = new Vector3(Mathf.Clamp(transform.localPosition.x, -2.5f, 2.5f), transform.localPosition.y, Mathf.Clamp(transform.localPosition.z, -2.5f, 2.5f));
         }
@@ -49,14 +50,10 @@ public class ClawMachineMovement : MonoBehaviour
             GrabSequence();
         }
     }
-    void Update()
+    public void StartGrabSequence()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            grabSequenceActivated = true;
-        }
+        grabSequenceActivated = true;
     }
-
     private void GrabSequence()
     {
         if (transform.localPosition.y > 1.4f && !reachedBottom)
@@ -82,13 +79,13 @@ public class ClawMachineMovement : MonoBehaviour
                     reachedTop = true;
                     if (reachedTop)
                     {
-                        if (transform.localPosition.x <= 2.5)
+                        if (transform.localPosition.x < 2.5)
                         {
-                            transform.position += new Vector3(speedUpAndDown * Time.deltaTime, 0, 0);
+                            transform.localPosition += new Vector3(1f * Time.deltaTime, 0, 0);
                         }
-                        if (transform.localPosition.z <= 2.5)
+                        if (transform.localPosition.z < 2.5f)
                         {
-                            transform.position += new Vector3(0, 0, speedUpAndDown * Time.deltaTime);
+                            transform.localPosition += new Vector3(0, 0, 1f * Time.deltaTime);
                         }
                         if (transform.localPosition.z > 2.5 && transform.localPosition.x > 2.5)
                         {

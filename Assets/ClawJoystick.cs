@@ -9,6 +9,7 @@ public class ClawJoystick : MonoBehaviour
 {
     public Transform bottom;
     public Transform handAttachment;
+    public float maxOffset = 0.15f;
 
     private Vector3 oldPosition;
     private Quaternion oldRotation;
@@ -21,7 +22,12 @@ public class ClawJoystick : MonoBehaviour
     }
 
     private bool isAttached;
-    private Quaternion previousRotation;
+    private Vector3 startPos;
+
+    void Start()
+    {
+        startPos = transform.position;
+    }
 
     private void HandHoverUpdate(Hand hand)
     {
@@ -61,23 +67,13 @@ public class ClawJoystick : MonoBehaviour
 
         if (isAttached)
         {
-            Vector3 rotationDistance = new Vector3(0, 0.3f, 0) - transform.localPosition;
-            if (rotationDistance.magnitude > 0.2)
-            {
-                Vector3 handPosNormalized = transform.InverseTransformPoint(hand.transform.position);
-                handPosNormalized.y = 0.3f;
-                Vector3 vectorToHand = new Vector3(0, 0.3f, 0) - handPosNormalized;
-                vectorToHand = vectorToHand.normalized * 0.2f;
-                bottom.rotation = Quaternion.LookRotation(transform.TransformPoint(vectorToHand) - bottom.position);
-                bottom.rotation *= Quaternion.Euler(90, 0, 0);
-            }
-            else
-            {
-                previousRotation = bottom.rotation;
-                bottom.rotation = Quaternion.LookRotation(hand.transform.position - bottom.position);
-                bottom.rotation *= Quaternion.Euler(90, 0, 0);
-
-            }
+            Vector3 handPosNormalized = hand.transform.position;
+            handPosNormalized = transform.InverseTransformPoint(handPosNormalized);
+            handPosNormalized = Vector3.ClampMagnitude(handPosNormalized, maxOffset);
+            handPosNormalized = transform.TransformPoint(handPosNormalized);
+            handPosNormalized.y = startPos.y;
+            bottom.rotation = Quaternion.LookRotation(handPosNormalized - bottom.position);
+            bottom.rotation *= Quaternion.Euler(90, 0, 0);
         }
     }
 
@@ -90,6 +86,10 @@ public class ClawJoystick : MonoBehaviour
         {
             bottom.rotation = Quaternion.Lerp(bottom.rotation, Quaternion.Euler(0, 0, 0), 2 * Time.deltaTime);
         }
+    }
 
+    public Vector2 GetJoystickPosition()
+    {
+        return new Vector2(transform.localPosition.x, transform.localPosition.z) * 4;
     }
 }
