@@ -61,18 +61,22 @@ public class ClawJoystick : MonoBehaviour
 
         if (isAttached)
         {
-            bottom.rotation = Quaternion.LookRotation(hand.transform.position - bottom.position);
-            bottom.rotation *= Quaternion.Euler(90, 0, 0);
-
             Vector3 rotationDistance = new Vector3(0, 0.3f, 0) - transform.localPosition;
             if (rotationDistance.magnitude > 0.2)
             {
-                Debug.Log(previousRotation);
-                bottom.rotation = previousRotation;
+                Vector3 handPosNormalized = transform.InverseTransformPoint(hand.transform.position);
+                handPosNormalized.y = 0.3f;
+                Vector3 vectorToHand = new Vector3(0, 0.3f, 0) - handPosNormalized;
+                vectorToHand = vectorToHand.normalized * 0.2f;
+                bottom.rotation = Quaternion.LookRotation(transform.TransformPoint(vectorToHand) - bottom.position);
+                bottom.rotation *= Quaternion.Euler(90, 0, 0);
             }
             else
             {
                 previousRotation = bottom.rotation;
+                bottom.rotation = Quaternion.LookRotation(hand.transform.position - bottom.position);
+                bottom.rotation *= Quaternion.Euler(90, 0, 0);
+
             }
         }
     }
